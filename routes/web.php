@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,10 @@ Route::get('/services', function() {
 Route::get('/contact', function() {
     return view('contact');
 });
+
+Auth::routes();
+
+// Cateogries
+Route::resource('categories',CategoryController::class)->middleware('auth');
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

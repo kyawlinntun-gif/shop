@@ -44,6 +44,22 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
                     </li>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/login') }}">Login</a>
+                        </li>
+                    @endguest
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/categories') }}">Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                        </li>  
+                        <form action="{{ url('logout') }}" method="POST" id="logout-form" style="display: none;">
+                            @csrf
+                        </form>
+                    @endauth
                 </ul>
             </div>
         </div>
