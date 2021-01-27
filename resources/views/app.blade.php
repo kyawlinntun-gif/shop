@@ -51,6 +51,9 @@
                     @endguest
                     @auth
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/products') }}">Product</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url('/categories') }}">Category</a>
                         </li>
                         <li class="nav-item">
@@ -89,6 +92,8 @@
     <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    @yield('script')
 
 </body>
 

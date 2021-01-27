@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        $products = Product::all();
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -25,7 +26,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $categories = Category::all();
+
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -36,9 +39,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create(['name' => $request->name]);
+        Product::create(['name' => $request->name, 'price' => $request->price, 'description' => $request->description, 'category_id' => $request->category_id]);
 
-        return redirect('/categories');
+        return redirect('/products');
     }
 
     /**
@@ -55,38 +58,34 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  array  Category $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        return view('categories.edit', compact('category'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  array  Category $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $category->update(['name' => $request->name]);
-
-        return redirect('/categories');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  array  Category $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
-
-        return redirect('/categories');
+        //
     }
 }
