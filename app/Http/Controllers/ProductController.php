@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreFormRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -37,9 +38,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductStoreFormRequest $request)
     {
-        Product::create(['name' => $request->name, 'price' => $request->price, 'description' => $request->description, 'category_id' => $request->category_id]);
+        Product::create(['name' => $request->name, 'price' => $request->price, 'description' => $request->description, 'category_id' => $request->category_id, 'photo' => '']);
 
         return redirect('/products');
     }
@@ -58,34 +59,41 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  array  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+
+        return view('products.edit', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  array  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+
+        $product->update(['name' => $request->name, 'price' => $request->price, 'description' => $request->description, 'category_id' => $request->category_id, 'photo' => '']);
+
+        return redirect('/products');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  array  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect('/products');
     }
 }
