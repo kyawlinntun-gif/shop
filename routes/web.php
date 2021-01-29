@@ -33,10 +33,13 @@ Route::get('/contact', function() {
 
 Auth::routes();
 
-// Cateogries
-Route::resource('categories',CategoryController::class)->middleware('auth');
+Route::group(['middleware' => 'auth'], function () {
+    // Cateogries
+    Route::resource('categories',CategoryController::class);
+    
+    // Products
+    Route::resource('products', ProductController::class);
+});
 
-// Products
-Route::resource('products', ProductController::class)->middleware('auth');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

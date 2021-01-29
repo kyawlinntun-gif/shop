@@ -40,7 +40,9 @@ class ProductController extends Controller
      */
     public function store(ProductStoreFormRequest $request)
     {
-        Product::create(['name' => $request->name, 'price' => $request->price, 'description' => $request->description, 'category_id' => $request->category_id, 'photo' => '']);
+        $path = $path = $request->file('photo')->store('photos', 'public');
+
+        Product::create(['name' => $request->name, 'price' => $request->price, 'description' => $request->description, 'category_id' => $request->category_id, 'photo' => $path]);
 
         return redirect('/products');
     }
