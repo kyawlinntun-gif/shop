@@ -23,13 +23,22 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($id = null)
     {
-        $categories = Category::all();
-        $products = Product::with('category')->get();
-        return view('index', [
-            'categories' => $categories,
-            'products' => $products
-        ]);
+        if ($id) {
+            $categories = Category::all();
+            $products = Product::where('category_id', $id)->get();
+            return view('index', [
+                'categories' => $categories,
+                'products' => $products
+            ]);
+        } else {
+            $categories = Category::all();
+            $products = Product::with('category')->get();
+            return view('index', [
+                'categories' => $categories,
+                'products' => $products
+            ]);
+        }
     }
 }

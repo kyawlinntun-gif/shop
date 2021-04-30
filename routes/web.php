@@ -19,15 +19,19 @@ use App\Http\Controllers\CategoryController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/about', function() {
+/* ---------- Start of for different categories ---------- */
+Route::get('/category/{id}', [HomeController::class, 'index'])->where('id', '[0-9]+');
+/* ---------- End of for different categories ---------- */
+
+Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/services', function() {
+Route::get('/services', function () {
     return view('services');
 });
 
-Route::get('/contact', function() {
+Route::get('/contact', function () {
     return view('contact');
 });
 
@@ -35,8 +39,8 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     // Cateogries
-    Route::resource('categories',CategoryController::class);
-    
+    Route::resource('categories', CategoryController::class);
+
     // Products
     Route::resource('products', ProductController::class);
 });
